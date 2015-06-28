@@ -149,6 +149,11 @@ public class Budget extends JFrame{
     private JLabel eallLabel = null;
     private JLabel allSurplusLabel = null;
     
+    //首页数据图表Panel
+    private JPanel dataGraphPanel = null;
+    //首页数据图表title border
+    private TitledBorder dataGraphTBorder = null;
+    
     //新增收支 Panel
     private JPanel newSchePanel = null;
     
@@ -362,7 +367,13 @@ public class Budget extends JFrame{
 		dataStatPanel.add(eallLabel);
 		dataStatPanel.add(allSurplusLabel);
 		
+		//设置数据图表
+		dataGraphPanel = new JPanel();
+		dataGraphTBorder = new TitledBorder("数据图表");
+		dataGraphPanel.setBorder(dataGraphTBorder);
+		
 		indexPanel.add(BorderLayout.NORTH, dataStatPanel);
+		indexPanel.add(BorderLayout.CENTER, dataGraphPanel);
 		
 		//添加到卡片
 		centerPanel.add("index", indexPanel);
