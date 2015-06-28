@@ -10,6 +10,7 @@ public class Main {
 	public static void main(String[] args) {
 		try{
 			BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.FrameBorderStyle.translucencyAppleLike;
+			//BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.FrameBorderStyle.osLookAndFeelDecorated;
 	        BeautyEyeLNFHelper.launchBeautyEyeLNF();
 	        UIManager.put("RootPane.setupButtonVisible", false);
 	    }catch(Exception e){
