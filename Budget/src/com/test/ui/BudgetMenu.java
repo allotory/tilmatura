@@ -85,6 +85,13 @@ public class BudgetMenu {
   				card.show(centerPanel, "newSchedule");
   			}
   		});
+  		addTypeMItem.addMouseListener(new MouseAdapter() {
+  			@Override
+  			public void mousePressed(MouseEvent e) {
+  				//显示添加类别
+  				card.show(centerPanel, "newType");
+  			}
+  		});
   		
   		//收支明细菜单
   		scheduleMenu = new JMenu("收支明细");
