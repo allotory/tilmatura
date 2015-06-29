@@ -91,10 +91,10 @@ public class Budget extends JFrame{
 		newSchePanel = new NewScheCard().setNewSche();
 		centerPanel.add("newSchedule", newSchePanel);
 		//设置收支明细
-		scheDetailPanel = new ScheDetails().scheDetails();
+		scheDetailPanel = new ScheDetailsCard().scheDetails();
 		centerPanel.add("scheDetail", scheDetailPanel);
 		//设置收支统计
-		scheStatPanel = new ScheStat().inexpStat();
+		scheStatPanel = new ScheStatCard().inexpStat();
 		centerPanel.add("scheStat", scheStatPanel);
 		
 		//显示首页

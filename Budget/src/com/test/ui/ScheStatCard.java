@@ -11,7 +11,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
-public class ScheStat {
+public class ScheStatCard {
 	//收支统计Panel
     private JPanel scheStatPanel = null;
     private TitledBorder scheStatTBorder = null;

@@ -12,7 +12,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
-public class ScheDetails {
+public class ScheDetailsCard {
 	//收支明细 Panel
     private JPanel scheDetailPanel = null;
     //收支明细 title border
