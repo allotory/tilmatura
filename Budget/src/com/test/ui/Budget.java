@@ -45,6 +45,8 @@ public class Budget extends JFrame{
     private JPanel scheStatPanel = null;
 	//添加类别card Panel
 	private JPanel newTypePanel = null;
+	//图表card Panel
+	private JPanel graphPanel = null;
     
 	//获取屏幕高度宽度
 	private ScreenSizeUtils screenSizeUtils = null;
@@ -101,6 +103,9 @@ public class Budget extends JFrame{
 		//设置添加类别
 		newTypePanel = new NewTypeCard().setNewType();
 		centerPanel.add("newType", newTypePanel);
+		//设置图表
+		graphPanel = new GraphCard().getGraph("收支图表", "iegraph");
+		centerPanel.add("scheGraph", graphPanel);
 		
 		//显示首页
 		card.show(centerPanel, "index");

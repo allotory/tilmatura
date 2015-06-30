@@ -73,6 +73,13 @@ public class BudgetSideBar {
   				card.show(centerPanel, "scheStat");
   			}
   		});
+  		graphBtn.addMouseListener(new MouseAdapter() {
+  			@Override
+  			public void mousePressed(MouseEvent e) {
+  				//显示收支明细
+  				card.show(centerPanel, "scheGraph");
+  			}
+  		});
   		
   		schedulePanel.add(scheduleBtn);
   		schedulePanel.add(scheStatBtn);
