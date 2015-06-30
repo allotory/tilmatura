@@ -47,6 +47,8 @@ public class Budget extends JFrame{
 	private JPanel newTypePanel = null;
 	//图表card Panel
 	private JPanel graphPanel = null;
+	//图表 expenses card Panel
+	private JPanel egraphPanel = null;
     
 	//获取屏幕高度宽度
 	private ScreenSizeUtils screenSizeUtils = null;
@@ -103,9 +105,18 @@ public class Budget extends JFrame{
 		//设置添加类别
 		newTypePanel = new NewTypeCard().setNewType();
 		centerPanel.add("newType", newTypePanel);
-		//设置图表
+		//设置收支图表
 		graphPanel = new GraphCard().getGraph("收支图表", "iegraph");
 		centerPanel.add("scheGraph", graphPanel);
+		//设置日段分析图表
+		egraphPanel = new ExpensesGraphCard().getGraph("日段分析", "edaygraph");
+		centerPanel.add("edayGraph", egraphPanel);
+		//设置月度分析图表
+		egraphPanel = new ExpensesGraphCard().getGraph("月度分析", "emonthgraph");
+		centerPanel.add("emonthGraph", egraphPanel);
+		//设置年度分析图表
+		egraphPanel = new ExpensesGraphCard().getGraph("年段分析", "eyeargraph");
+		centerPanel.add("eyearGraph", egraphPanel);
 		
 		//显示首页
 		card.show(centerPanel, "index");

@@ -69,14 +69,14 @@ public class BudgetSideBar {
   		scheStatBtn.addMouseListener(new MouseAdapter() {
   			@Override
   			public void mousePressed(MouseEvent e) {
-  				//显示收支明细
+  				//显示收支统计
   				card.show(centerPanel, "scheStat");
   			}
   		});
   		graphBtn.addMouseListener(new MouseAdapter() {
   			@Override
   			public void mousePressed(MouseEvent e) {
-  				//显示收支明细
+  				//显示收支图表
   				card.show(centerPanel, "scheGraph");
   			}
   		});
@@ -92,6 +92,27 @@ public class BudgetSideBar {
   		edayBtn = new JButton("日段分析");
   		emonthBtn = new JButton("月度分析");
   		eyearBtn = new JButton("年度分析");
+  		edayBtn.addMouseListener(new MouseAdapter() {
+  			@Override
+  			public void mousePressed(MouseEvent e) {
+  				//显示收支图表
+  				card.show(centerPanel, "edayGraph");
+  			}
+  		});
+  		emonthBtn.addMouseListener(new MouseAdapter() {
+  			@Override
+  			public void mousePressed(MouseEvent e) {
+  				//显示收支图表
+  				card.show(centerPanel, "emonthGraph");
+  			}
+  		});
+  		eyearBtn.addMouseListener(new MouseAdapter() {
+  			@Override
+  			public void mousePressed(MouseEvent e) {
+  				//显示收支图表
+  				card.show(centerPanel, "eyearGraph");
+  			}
+  		});
   		
   		expAnalysisPanel.add(edayBtn);
   		expAnalysisPanel.add(emonthBtn);

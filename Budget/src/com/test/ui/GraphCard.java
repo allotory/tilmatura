@@ -21,13 +21,13 @@ public class GraphCard {
 	
 	//图表 title panel
 	private JPanel graphTPanel = null;
-	//收支明细 - 起始日期
+	//图表 - 起始日期
     private JLabel startDateLabel = null;
     private JTextField startDate = null;
-    //收支明细 - 结束日期
+    //图表 - 结束日期
     private JLabel endDateLabel = null;
     private JTextField endDate = null;
-    //收支明细 - 查询
+    //图表 - 查询
     private JButton queryBtn = null;
     
     //图表center panel
@@ -65,7 +65,6 @@ public class GraphCard {
 			//图表
 			graphCPanel = new JPanel();
 			graphCPanel.setBackground(Color.GREEN);
-			
 		}
 		
 		graphPanel.add(BorderLayout.NORTH, graphTPanel);
