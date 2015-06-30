@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 //主界面菜单栏
@@ -92,6 +93,12 @@ public class BudgetMenu {
   				card.show(centerPanel, "newType");
   			}
   		});
+  		exitMItem.addMouseListener(new MouseAdapter() {
+  			@Override
+  			public void mousePressed(MouseEvent e) {
+  				System.exit(0);
+  			}
+  		});
   		
   		//收支明细菜单
   		scheduleMenu = new JMenu("收支明细");
@@ -101,6 +108,27 @@ public class BudgetMenu {
   		scheduleMenu.add(scheduleMItem);
   		scheduleMenu.add(scheStatMItem);
   		scheduleMenu.add(graphMItem);
+  		scheduleMItem.addMouseListener(new MouseAdapter() {
+  			@Override
+  			public void mousePressed(MouseEvent e) {
+  				//显示收支明细
+  				card.show(centerPanel, "scheDetail");
+  			}
+  		});
+  		scheStatMItem.addMouseListener(new MouseAdapter() {
+  			@Override
+  			public void mousePressed(MouseEvent e) {
+  				//显示收支统计
+  				card.show(centerPanel, "scheStat");
+  			}
+  		});
+  		graphMItem.addMouseListener(new MouseAdapter() {
+  			@Override
+  			public void mousePressed(MouseEvent e) {
+  				//显示收支图表
+  				card.show(centerPanel, "scheGraph");
+  			}
+  		});
   		
   		//支出分析菜单
   		expensesMenu = new JMenu("支出分析");
@@ -110,6 +138,27 @@ public class BudgetMenu {
   		expensesMenu.add(edayMItem);
   		expensesMenu.add(emonthMItem);
   		expensesMenu.add(eyearMItem);
+  		edayMItem.addMouseListener(new MouseAdapter() {
+  			@Override
+  			public void mousePressed(MouseEvent e) {
+  				//显示支出日段图表
+  				card.show(centerPanel, "edayGraph");
+  			}
+  		});
+  		emonthMItem.addMouseListener(new MouseAdapter() {
+  			@Override
+  			public void mousePressed(MouseEvent e) {
+  				//显示支出月度图表
+  				card.show(centerPanel, "emonthGraph");
+  			}
+  		});
+  		eyearMItem.addMouseListener(new MouseAdapter() {
+  			@Override
+  			public void mousePressed(MouseEvent e) {
+  				//显示支出年度图表
+  				card.show(centerPanel, "eyearGraph");
+  			}
+  		});
   		
   		//收入分析菜单
   		incomeMenu = new JMenu("支出分析");
@@ -119,11 +168,38 @@ public class BudgetMenu {
   		incomeMenu.add(idayMItem);
   		incomeMenu.add(imonthMItem);
   		incomeMenu.add(iyearMItem);
+  		idayMItem.addMouseListener(new MouseAdapter() {
+  			@Override
+  			public void mousePressed(MouseEvent e) {
+  				//显示收入日度图表
+  				card.show(centerPanel, "idayGraph");
+  			}
+  		});
+  		imonthMItem.addMouseListener(new MouseAdapter() {
+  			@Override
+  			public void mousePressed(MouseEvent e) {
+  				//显示收入月度图表
+  				card.show(centerPanel, "imonthGraph");
+  			}
+  		});
+  		iyearMItem.addMouseListener(new MouseAdapter() {
+  			@Override
+  			public void mousePressed(MouseEvent e) {
+  				//显示收入年度图表
+  				card.show(centerPanel, "iyearGraph");
+  			}
+  		});
   		
   		//帮助菜单
   		helpMenu = new JMenu("帮助");
   		aboutMItem = new JMenuItem("关于");
   		helpMenu.add(aboutMItem);
+  		aboutMItem.addMouseListener(new MouseAdapter() {
+  			@Override
+  			public void mousePressed(MouseEvent e) {
+  				JOptionPane.showMessageDialog(null, "没有帮助～");
+  			}
+  		});
   		
   		menuBar.add(fileMenu);
   		menuBar.add(scheduleMenu);

@@ -95,21 +95,21 @@ public class BudgetSideBar {
   		edayBtn.addMouseListener(new MouseAdapter() {
   			@Override
   			public void mousePressed(MouseEvent e) {
-  				//显示收支图表
+  				//显示支出日段图表
   				card.show(centerPanel, "edayGraph");
   			}
   		});
   		emonthBtn.addMouseListener(new MouseAdapter() {
   			@Override
   			public void mousePressed(MouseEvent e) {
-  				//显示收支图表
+  				//显示支出月度图表
   				card.show(centerPanel, "emonthGraph");
   			}
   		});
   		eyearBtn.addMouseListener(new MouseAdapter() {
   			@Override
   			public void mousePressed(MouseEvent e) {
-  				//显示收支图表
+  				//显示支出年度图表
   				card.show(centerPanel, "eyearGraph");
   			}
   		});
@@ -125,6 +125,27 @@ public class BudgetSideBar {
   		idayBtn = new JButton("日段分析");
   		imonthBtn = new JButton("月度分析");
   		iyearBtn = new JButton("年度分析");
+  		idayBtn.addMouseListener(new MouseAdapter() {
+  			@Override
+  			public void mousePressed(MouseEvent e) {
+  				//显示收入日度图表
+  				card.show(centerPanel, "idayGraph");
+  			}
+  		});
+  		imonthBtn.addMouseListener(new MouseAdapter() {
+  			@Override
+  			public void mousePressed(MouseEvent e) {
+  				//显示收入月度图表
+  				card.show(centerPanel, "imonthGraph");
+  			}
+  		});
+  		iyearBtn.addMouseListener(new MouseAdapter() {
+  			@Override
+  			public void mousePressed(MouseEvent e) {
+  				//显示收入年度图表
+  				card.show(centerPanel, "iyearGraph");
+  			}
+  		});
   		
   		inAnalysisPanel.add(idayBtn);
   		inAnalysisPanel.add(imonthBtn);
