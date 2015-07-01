@@ -49,10 +49,10 @@ public class GraphCard {
 			graphTPanel = new JPanel(new FlowLayout());
 			//起始日期
 			startDateLabel = new JLabel("起始日期：");
-			startDate = new JTextField(20);
+			startDate = new JTextField(10);
 			//结束日期
 			endDateLabel = new JLabel("结束日期：");
-			endDate = new JTextField(20);
+			endDate = new JTextField(10);
 			//查询按钮
 			queryBtn = new JButton("查询");
 			

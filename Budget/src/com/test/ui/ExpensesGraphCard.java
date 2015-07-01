@@ -53,33 +53,33 @@ public class ExpensesGraphCard {
 
 			//起始日期
 			startDateLabel = new JLabel("起始日期：");
-			startDate = new JTextField(20);
+			startDate = new JTextField(10);
 			startDate.setText("2015-01-01");
 			//结束日期
 			endDateLabel = new JLabel("结束日期：");
-			endDate = new JTextField(20);
+			endDate = new JTextField(10);
 			endDate.setText("2015-12-31");
 		}else if(flag.equals("emonthgraph")) {
 			//支出月度分析
 
 			//起始日期
 			startDateLabel = new JLabel("起始日期：");
-			startDate = new JTextField(20);
+			startDate = new JTextField(10);
 			startDate.setText("2015-01");
 			//结束日期
 			endDateLabel = new JLabel("结束日期：");
-			endDate = new JTextField(20);
+			endDate = new JTextField(10);
 			endDate.setText("2015-12");
 		}else if(flag.equals("eyeargraph")) {
 			//支出年度分析
 
 			//起始日期
 			startDateLabel = new JLabel("起始日期：");
-			startDate = new JTextField(20);
+			startDate = new JTextField(10);
 			startDate.setText("2014");
 			//结束日期
 			endDateLabel = new JLabel("结束日期：");
-			endDate = new JTextField(20);
+			endDate = new JTextField(10);
 			endDate.setText("2015");
 		}
 		

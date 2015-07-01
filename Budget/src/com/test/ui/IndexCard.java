@@ -8,6 +8,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
+import com.test.utils.LineChart;
+
 public class IndexCard {
 	//首页card panel
     private JPanel indexPanel = null;
@@ -96,7 +98,7 @@ public class IndexCard {
 		dataStatPanel.add(allSurplusLabel);
 		
 		//设置数据图表
-		dataGraphPanel = new JPanel();
+		dataGraphPanel = LineChart.createDemoLine();
 		dataGraphTBorder = new TitledBorder("数据图表");
 		dataGraphPanel.setBorder(dataGraphTBorder);
 		
