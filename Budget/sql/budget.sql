@@ -11,5 +11,6 @@ create table sche (
 
 create table category (
 	id integer primary key,
-	cateName text
+	cateName text,
+	scheType text
 );

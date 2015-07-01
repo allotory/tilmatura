@@ -2,6 +2,11 @@ package com.test.ui;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -11,6 +16,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+
+import com.test.db.SqliteDB;
 
 public class NewTypeCard {
 	//添加类别Panel
@@ -32,7 +39,21 @@ public class NewTypeCard {
     //管理类别 table
     private JTable manageTypeTable = null;
 	
+    //数据库操作
+    SqliteDB sdb = null;
+    Connection conn = null;
+    PreparedStatement pstmt = null;
+    
 	public JPanel setNewType() {
+		//数据库
+		sdb = new SqliteDB();
+		conn = sdb.getConn();
+		try {
+			pstmt = conn.prepareStatement("insert into category(cateName, scheType) values (?, ?);");
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		
 		//添加类别Panel
 		newTypePanel = new JPanel(new BorderLayout());
 		
@@ -49,6 +70,23 @@ public class NewTypeCard {
 		typeCbox.addItem("支出");
 		//按钮
 		addBtn = new JButton("添加");
+		addBtn.addMouseListener(new MouseAdapter() {
+  			@Override
+  			public void mousePressed(MouseEvent e) {
+  				try {
+					pstmt.setString(1, typeNameField.getText());
+					pstmt.setString(2, typeCbox.getSelectedItem().toString());
+					int r = sdb.execOther(pstmt);
+					if(r != -1) {
+						System.out.println("添加类别成功！");
+					}else{
+						System.out.println("添加类别失败！");
+					}
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+  			}
+  		});
 		
 		//管理类别 panel
 		manageTypePanel = new JPanel(new BorderLayout());

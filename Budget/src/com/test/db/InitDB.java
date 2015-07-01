@@ -15,7 +15,7 @@ public class InitDB {
 		stmt.executeUpdate("drop table if exists sche;");
 		stmt.executeUpdate("create table sche (id integer primary key,scheType text,scheCategory integer,scheDate text,scheAmount real,scheDescription text);");
 		stmt.executeUpdate("drop table if exists category;");
-		stmt.executeUpdate("create table category (id integer primary key,cateName text);");
+		stmt.executeUpdate("create table category (id integer primary key,cateName text,scheType text);");
 		
 		sdb.closeDB();
 	}
