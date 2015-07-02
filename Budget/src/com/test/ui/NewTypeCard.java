@@ -6,6 +6,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.swing.JButton;
@@ -16,8 +17,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 
 import com.test.db.SqliteDB;
+import com.test.func.TableData;
 
 public class NewTypeCard {
 	//添加类别Panel
@@ -43,13 +46,21 @@ public class NewTypeCard {
     SqliteDB sdb = null;
     Connection conn = null;
     PreparedStatement pstmt = null;
+    PreparedStatement pstmt2 = null;
+    ResultSet rs = null;
+    
+    //表格数据
+    TableData td = null;
+	DefaultTableModel tableModel = null;
     
 	public JPanel setNewType() {
 		//数据库
 		sdb = new SqliteDB();
 		conn = sdb.getConn();
+		String sql1 = "insert into category(cateName, scheType) values (?, ?);";
+		String sql2 = "select * from category;";
 		try {
-			pstmt = conn.prepareStatement("insert into category(cateName, scheType) values (?, ?);");
+			pstmt = conn.prepareStatement(sql1);
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
@@ -73,18 +84,34 @@ public class NewTypeCard {
 		addBtn.addMouseListener(new MouseAdapter() {
   			@Override
   			public void mousePressed(MouseEvent e) {
-  				try {
-					pstmt.setString(1, typeNameField.getText());
-					pstmt.setString(2, typeCbox.getSelectedItem().toString());
-					int r = sdb.execOther(pstmt);
-					if(r != -1) {
-						System.out.println("添加类别成功！");
-					}else{
-						System.out.println("添加类别失败！");
-					}
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
+  				new Thread( ()->{
+  					try {
+  						pstmt.setString(1, typeNameField.getText());
+  						pstmt.setString(2, typeCbox.getSelectedItem().toString());
+  						int r = sdb.execOther(pstmt);
+  						if(r != -1) {
+  							System.out.println("添加类别成功！");
+  						}else{
+  							System.out.println("添加类别失败！");
+  						}
+  					} catch (SQLException e1) {
+  						e1.printStackTrace();
+  					}
+  					
+  					try {
+  						pstmt2 = conn.prepareStatement(sql2);
+  						rs = sdb.execQuery(pstmt2);
+  					} catch (SQLException e1) {
+  						e1.printStackTrace();
+  					}
+
+  					td = new TableData(rs);
+  					tableModel = td.getTableData();
+  					
+  					manageTypeTable.setModel(tableModel);
+  					manageTypeTable.validate();
+  					manageTypeTable.updateUI();
+  				}).start();
   			}
   		});
 		
@@ -93,18 +120,19 @@ public class NewTypeCard {
 		mgeTypeTBorder = new TitledBorder("管理类别");
 		manageTypePanel.setBorder(mgeTypeTBorder);
 		
-		//定义二维数组作为表格数据  
-	    Object[][] tableData = {  
-	        new Object[]{"李清照" , 29 ,29 },  
-	        new Object[]{"苏格拉底", 29 , 56},  
-	        new Object[]{"李白", 29 , 35 },  
-	        new Object[]{"弄玉", 29 , 18},  
-	        new Object[]{"虎头", 29 , 2 }  
-	    };  
-	    //定义一维数据作为列标题  
-	    Object[] columnTitle = {"类别名称" , "类型" , "管理"};  
+		//定义表格数据模型
+		try {
+			pstmt2 = conn.prepareStatement(sql2);
+			rs = sdb.execQuery(pstmt2);
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+
+		td = new TableData(rs);
+		tableModel = td.getTableData();
+		
 		//管理类别表格
-	    manageTypeTable = new JTable(tableData, columnTitle);
+	    manageTypeTable = new JTable(tableModel);
 		
 		newTypeTPanel.add(typeName);
 		newTypeTPanel.add(typeNameField);

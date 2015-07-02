@@ -90,6 +90,7 @@ public class BudgetMenu {
   			@Override
   			public void mousePressed(MouseEvent e) {
   				//显示添加类别
+  				centerPanel.repaint();
   				card.show(centerPanel, "newType");
   			}
   		});

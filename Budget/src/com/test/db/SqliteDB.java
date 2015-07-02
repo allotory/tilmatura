@@ -50,28 +50,28 @@ public class SqliteDB {
 	
 	//关闭数据库的方法
     public void closeDB(){
-        if(rs!=null){
+        if(rs != null){
             try {
                 rs.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
-        if(pstmt!=null){
+        if(pstmt != null){
             try {
                 pstmt.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
-        if(stmt!=null){
+        if(stmt != null){
             try {
                 stmt.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
-        if(conn!=null){
+        if(conn != null){
             try {
                 conn.close();
             } catch (SQLException e) {
