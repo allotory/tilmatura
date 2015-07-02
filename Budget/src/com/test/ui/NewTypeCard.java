@@ -98,6 +98,7 @@ public class NewTypeCard {
   						e1.printStackTrace();
   					}
   					
+  					//Ë¢ÐÂ±í¸ñ
   					try {
   						pstmt2 = conn.prepareStatement(sql2);
   						rs = sdb.execQuery(pstmt2);

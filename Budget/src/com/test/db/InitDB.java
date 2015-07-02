@@ -13,7 +13,7 @@ public class InitDB {
 		conn = sdb.getConn();
 		stmt = conn.createStatement();
 		stmt.executeUpdate("drop table if exists sche;");
-		stmt.executeUpdate("create table sche (id integer primary key,scheType text,scheCategory integer,scheDate text,scheAmount real,scheDescription text);");
+		stmt.executeUpdate("create table sche (id integer primary key,scheType text,scheCategory text,scheDate text,scheAmount text,scheDescription text);");
 		stmt.executeUpdate("drop table if exists category;");
 		stmt.executeUpdate("create table category (id integer primary key,cateName text,scheType text);");
 		
