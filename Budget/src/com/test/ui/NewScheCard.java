@@ -125,14 +125,6 @@ public class NewScheCard {
 		addScheBtn.addMouseListener(new MouseAdapter() {
   			@Override
   			public void mousePressed(MouseEvent e) {
-//  				if(incomeRbtn.isSelected()) {
-//  					System.out.println(incomeRbtn.getText());
-//  				}else if(expRbtn.isSelected()) {
-//  					System.out.println(expRbtn.getText());
-//  				}
-//  				System.out.println(categoryCbox.getSelectedItem().toString());
-  				
-  				
   				
   				new Thread( ()->{
   					try {

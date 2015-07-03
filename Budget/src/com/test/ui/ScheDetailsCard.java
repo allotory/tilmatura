@@ -2,6 +2,10 @@ package com.test.ui;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -11,6 +15,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
+
+import com.test.db.SqliteDB;
+import com.test.func.TableData;
 
 public class ScheDetailsCard {
 	//收支明细 Panel
@@ -32,8 +40,27 @@ public class ScheDetailsCard {
     private JButton queryBtn = null;
     //收支明细 - 表格
     private JTable scheTable = null;
+
+    //数据库操作
+    private SqliteDB sdb = null;
+    private Connection conn = null;
+    private PreparedStatement pstmt = null;
+    private PreparedStatement pstmt2 = null;
+    private ResultSet rs = null;
+    private ResultSet rs2 = null;
+    
+    //表格数据
+    TableData td = null;
+	DefaultTableModel tableModel = null;
     
     public JPanel scheDetails() {
+    	
+    	//数据库
+    	sdb = new SqliteDB();
+		conn = sdb.getConn();
+		String sql1 = "select * from sche;";
+		String sql2 = "select * from category;";
+    	
 		//收支明细
 		scheDetailPanel = new JPanel(new BorderLayout());
 		scheDetailTBorder = new TitledBorder("收支明细");
@@ -50,10 +77,17 @@ public class ScheDetailsCard {
 		//类别
 		scheTypeLabel = new JLabel("类别：");
 		scheTypeCbox = new JComboBox<String>();
-		scheTypeCbox.addItem("衣");
-		scheTypeCbox.addItem("食");
-		scheTypeCbox.addItem("住");
-		scheTypeCbox.addItem("行");
+		//查询分类
+		try {
+			pstmt2 = conn.prepareStatement(sql2);
+			rs2 = sdb.execQuery(pstmt2);
+			scheTypeCbox.addItem("全部分类");
+			while(rs2.next()) {
+				scheTypeCbox.addItem(rs2.getString("cateName"));
+			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
 		//查询按钮
 		queryBtn = new JButton("查询");
 
@@ -69,18 +103,19 @@ public class ScheDetailsCard {
 		//添加查询按钮
 		scheDeTitlePanel.add(queryBtn);
 		
-		//定义二维数组作为表格数据  
-	    Object[][] tableData = {  
-	        new Object[]{"李清照" , 29 ,29 , "女"},  
-	        new Object[]{"苏格拉底", 29 , 56 , "男"},  
-	        new Object[]{"李白", 29 , 35 , "男"},  
-	        new Object[]{"弄玉", 29 , 18 , "女"},  
-	        new Object[]{"虎头", 29 , 2 , "男"}  
-	    };  
-	    //定义一维数据作为列标题  
-	    Object[] columnTitle = {"日期" , "收入" , "支出", "合计"};  
+		//定义表格数据模型
+		try {
+			pstmt = conn.prepareStatement(sql1);
+			rs = sdb.execQuery(pstmt);
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+
+		td = new TableData(rs);
+		tableModel = td.getScheTableData();
+		
 		//收支明细表格
-		scheTable = new JTable(tableData, columnTitle);
+		scheTable = new JTable(tableModel);
 		
 		scheDetailPanel.add(BorderLayout.NORTH, scheDeTitlePanel);
 		scheDetailPanel.add(BorderLayout.CENTER, new JScrollPane(scheTable));
