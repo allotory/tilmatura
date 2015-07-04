@@ -58,6 +58,21 @@ public class BudgetMenu {
     //帮助菜单 - 关于
     private JMenuItem aboutMItem = null;
     
+	//新增收支card Panel
+    private JPanel newSchePanel = null;
+	//添加类别card Panel
+	private JPanel newTypePanel = null;
+	//收支明细card Panel
+    private JPanel scheDetailPanel = null;
+	//收支统计card Panel
+    private JPanel scheStatPanel = null;
+	//图表card Panel
+	private JPanel graphPanel = null;
+	//图表 expenses card Panel
+	private JPanel egraphPanel = null;
+	//图表 income card Panel
+	private JPanel igraphPanel = null;
+    
     //设置菜单
   	public JMenuBar setMenu(JPanel centerPanel, CardLayout card) {
   		menuBar = new JMenuBar();
@@ -82,6 +97,9 @@ public class BudgetMenu {
   		newMItem.addMouseListener(new MouseAdapter() {
   			@Override
   			public void mousePressed(MouseEvent e) {
+  				//设置新增开支
+  				newSchePanel = new NewScheCard().setNewSche();
+  				centerPanel.add("newSchedule", newSchePanel);
   				//显示新增开支
   				card.show(centerPanel, "newSchedule");
   			}
@@ -89,8 +107,10 @@ public class BudgetMenu {
   		addTypeMItem.addMouseListener(new MouseAdapter() {
   			@Override
   			public void mousePressed(MouseEvent e) {
+  				//设置添加类别
+  				newTypePanel = new NewTypeCard().setNewType();
+  				centerPanel.add("newType", newTypePanel);
   				//显示添加类别
-  				centerPanel.repaint();
   				card.show(centerPanel, "newType");
   			}
   		});
@@ -112,6 +132,9 @@ public class BudgetMenu {
   		scheduleMItem.addMouseListener(new MouseAdapter() {
   			@Override
   			public void mousePressed(MouseEvent e) {
+  				//设置收支明细
+  				scheDetailPanel = new ScheDetailsCard().scheDetails();
+  				centerPanel.add("scheDetail", scheDetailPanel);
   				//显示收支明细
   				card.show(centerPanel, "scheDetail");
   			}
@@ -119,6 +142,9 @@ public class BudgetMenu {
   		scheStatMItem.addMouseListener(new MouseAdapter() {
   			@Override
   			public void mousePressed(MouseEvent e) {
+  				//设置收支统计
+  				scheStatPanel = new ScheStatCard().inexpStat();
+  				centerPanel.add("scheStat", scheStatPanel);
   				//显示收支统计
   				card.show(centerPanel, "scheStat");
   			}
@@ -126,6 +152,9 @@ public class BudgetMenu {
   		graphMItem.addMouseListener(new MouseAdapter() {
   			@Override
   			public void mousePressed(MouseEvent e) {
+  				//设置收支图表
+  				graphPanel = new GraphCard().getGraph("收支图表", "iegraph");
+  				centerPanel.add("scheGraph", graphPanel);
   				//显示收支图表
   				card.show(centerPanel, "scheGraph");
   			}
@@ -142,6 +171,9 @@ public class BudgetMenu {
   		edayMItem.addMouseListener(new MouseAdapter() {
   			@Override
   			public void mousePressed(MouseEvent e) {
+  				//设置支出日段分析图表
+  				egraphPanel = new ExpensesGraphCard().getGraph("支出日段分析", "edaygraph");
+  				centerPanel.add("edayGraph", egraphPanel);
   				//显示支出日段图表
   				card.show(centerPanel, "edayGraph");
   			}
@@ -149,6 +181,9 @@ public class BudgetMenu {
   		emonthMItem.addMouseListener(new MouseAdapter() {
   			@Override
   			public void mousePressed(MouseEvent e) {
+  				//设置支出月度分析图表
+  				egraphPanel = new ExpensesGraphCard().getGraph("支出月度分析", "emonthgraph");
+  				centerPanel.add("emonthGraph", egraphPanel);
   				//显示支出月度图表
   				card.show(centerPanel, "emonthGraph");
   			}
@@ -156,6 +191,9 @@ public class BudgetMenu {
   		eyearMItem.addMouseListener(new MouseAdapter() {
   			@Override
   			public void mousePressed(MouseEvent e) {
+  				//设置支出年度分析图表
+  				egraphPanel = new ExpensesGraphCard().getGraph("支出年段分析", "eyeargraph");
+  				centerPanel.add("eyearGraph", egraphPanel);
   				//显示支出年度图表
   				card.show(centerPanel, "eyearGraph");
   			}
@@ -172,6 +210,9 @@ public class BudgetMenu {
   		idayMItem.addMouseListener(new MouseAdapter() {
   			@Override
   			public void mousePressed(MouseEvent e) {
+  				//设置收入日段分析图表
+  				igraphPanel = new IncomeGraphCard().getGraph("收入日段分析", "idaygraph");
+  				centerPanel.add("idayGraph", igraphPanel);
   				//显示收入日度图表
   				card.show(centerPanel, "idayGraph");
   			}
@@ -179,6 +220,9 @@ public class BudgetMenu {
   		imonthMItem.addMouseListener(new MouseAdapter() {
   			@Override
   			public void mousePressed(MouseEvent e) {
+  				//设置收入月度分析图表
+  				igraphPanel = new IncomeGraphCard().getGraph("收入月度分析", "imonthgraph");
+  				centerPanel.add("imonthGraph", igraphPanel);
   				//显示收入月度图表
   				card.show(centerPanel, "imonthGraph");
   			}
@@ -186,6 +230,9 @@ public class BudgetMenu {
   		iyearMItem.addMouseListener(new MouseAdapter() {
   			@Override
   			public void mousePressed(MouseEvent e) {
+  				//设置收入年度分析图表
+  				igraphPanel = new IncomeGraphCard().getGraph("收入年段分析", "iyeargraph");
+  				centerPanel.add("iyearGraph", igraphPanel);
   				//显示收入年度图表
   				card.show(centerPanel, "iyearGraph");
   			}
