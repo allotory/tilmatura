@@ -78,6 +78,9 @@ public class ScheDetailsCard {
 		scheTypeLabel = new JLabel("类别：");
 		scheTypeCbox = new JComboBox<String>();
 		//查询分类
+    	//数据库
+    	sdb = new SqliteDB();
+		conn = sdb.getConn();
 		try {
 			pstmt2 = conn.prepareStatement(sql2);
 			rs2 = sdb.execQuery(pstmt2);
@@ -88,6 +91,7 @@ public class ScheDetailsCard {
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
+		sdb.closeDB();
 		//查询按钮
 		queryBtn = new JButton("查询");
 
@@ -104,15 +108,18 @@ public class ScheDetailsCard {
 		scheDeTitlePanel.add(queryBtn);
 		
 		//定义表格数据模型
+    	//数据库
+    	sdb = new SqliteDB();
+		conn = sdb.getConn();
 		try {
 			pstmt = conn.prepareStatement(sql1);
 			rs = sdb.execQuery(pstmt);
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
-
 		td = new TableData(rs);
 		tableModel = td.getScheTableData();
+		sdb.closeDB();
 		
 		//收支明细表格
 		scheTable = new JTable(tableModel);

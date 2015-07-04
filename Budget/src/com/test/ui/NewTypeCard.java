@@ -55,15 +55,8 @@ public class NewTypeCard {
     
 	public JPanel setNewType() {
 		//数据库
-		sdb = new SqliteDB();
-		conn = sdb.getConn();
 		String sql1 = "insert into category(cateName, scheType) values (?, ?);";
 		String sql2 = "select * from category;";
-		try {
-			pstmt = conn.prepareStatement(sql1);
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
 		
 		//添加类别Panel
 		newTypePanel = new JPanel(new BorderLayout());
@@ -85,7 +78,11 @@ public class NewTypeCard {
   			@Override
   			public void mousePressed(MouseEvent e) {
   				new Thread( ()->{
+  					//数据库
+  					sdb = new SqliteDB();
+  					conn = sdb.getConn();
   					try {
+  						pstmt = conn.prepareStatement(sql1);
   						pstmt.setString(1, typeNameField.getText());
   						pstmt.setString(2, typeCbox.getSelectedItem().toString());
   						int r = sdb.execOther(pstmt);
@@ -112,6 +109,9 @@ public class NewTypeCard {
   					manageTypeTable.setModel(tableModel);
   					manageTypeTable.validate();
   					manageTypeTable.updateUI();
+  					
+  					//关闭数据库连接
+  					sdb.closeDB();
   				}).start();
   			}
   		});
@@ -122,6 +122,9 @@ public class NewTypeCard {
 		manageTypePanel.setBorder(mgeTypeTBorder);
 		
 		//定义表格数据模型
+		//数据库
+		sdb = new SqliteDB();
+		conn = sdb.getConn();
 		try {
 			pstmt2 = conn.prepareStatement(sql2);
 			rs = sdb.execQuery(pstmt2);
@@ -131,6 +134,7 @@ public class NewTypeCard {
 
 		td = new TableData(rs);
 		tableModel = td.getTableData();
+		sdb.closeDB();
 		
 		//管理类别表格
 	    manageTypeTable = new JTable(tableModel);

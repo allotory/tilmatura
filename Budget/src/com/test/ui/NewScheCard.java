@@ -52,21 +52,11 @@ public class NewScheCard {
     private ResultSet rs = null;
     
     public JPanel setNewSche() {
-    	
     	//数据库
-    	sdb = new SqliteDB();
-		conn = sdb.getConn();
 		String sql1 = "insert into sche(scheType, scheCategory, scheDate, "
 				+ "scheAmount, scheDescription) values (?, ?, ?, ?, ?);";
 		String sql2 = "select * from category;";
-		
-		try {
-			pstmt = conn.prepareStatement(sql1);
-			pstmt2 = conn.prepareStatement(sql2);
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
-    	
+
 		//新增收支
 		newSchePanel = new JPanel();
 		newSchePanel.setLayout(null);
@@ -89,6 +79,9 @@ public class NewScheCard {
 		scheCategory = new JLabel("类别：");
 		categoryCbox = new JComboBox<String>();
 		//查询分类
+		//数据库
+    	sdb = new SqliteDB();
+		conn = sdb.getConn();
 		try {
 			pstmt2 = conn.prepareStatement(sql2);
 			rs = sdb.execQuery(pstmt2);
@@ -98,6 +91,7 @@ public class NewScheCard {
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
+		sdb.closeDB();
 		scheCategory.setBounds(50, 60, 40, 50);
 		categoryCbox.setBounds(100, 75, 120, 20);
 		
@@ -125,10 +119,14 @@ public class NewScheCard {
 		addScheBtn.addMouseListener(new MouseAdapter() {
   			@Override
   			public void mousePressed(MouseEvent e) {
-  				
   				new Thread( ()->{
+  					//数据库
+  			    	sdb = new SqliteDB();
+  					conn = sdb.getConn();
   					try {
-	  					if(incomeRbtn.isSelected()) {
+  						pstmt = conn.prepareStatement(sql1);
+
+  						if(incomeRbtn.isSelected()) {
 	  						pstmt.setString(1, incomeRbtn.getText());
 	  	  				}else if(expRbtn.isSelected()) {
 	  	  					pstmt.setString(1, expRbtn.getText());
@@ -148,6 +146,7 @@ public class NewScheCard {
   					} catch (SQLException e1) {
   						e1.printStackTrace();
   					}
+  					sdb.closeDB();
   				}).start();
   			}
   		});
