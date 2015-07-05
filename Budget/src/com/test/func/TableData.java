@@ -81,4 +81,33 @@ public class TableData {
 		
 		return tableModel;
 	}
+
+	//收支统计
+	public DefaultTableModel getStatTableData() {
+		
+		Vector<Vector<Object>> tableData = new Vector<Vector<Object>>();
+		
+		try {
+			while(rs.next()) {
+				Vector<Object> v = new Vector<Object>();
+				v.add(rs.getString("scheCategory"));
+				v.add(rs.getString("scheType"));
+				v.add(rs.getString("sum_amount"));
+				
+				tableData.add(v);
+			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		
+	    //定义一维数据作为列标题  
+		Vector<String> columnTitle = new Vector<String>();
+		columnTitle.add("类别名称");
+		columnTitle.add("类型");
+		columnTitle.add("金额");
+		
+		tableModel = new DefaultTableModel(tableData, columnTitle);
+		
+		return tableModel;
+	}
 }

@@ -8,12 +8,10 @@ import java.sql.SQLException;
 
 import javax.swing.JPanel;
 
-import org.jfree.chart.ChartColor;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.StandardChartTheme;
-import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.data.general.DefaultPieDataset;
 
 import com.test.db.SqliteDB;
@@ -40,17 +38,12 @@ public class PieChart {
 
 		//定义图表对象
 		JFreeChart chart = ChartFactory.createPieChart(
-				"", 						//标题
-				dpd, 				//数据集
-				true, 						//是否显示Legend
-				true, 						//是否显示提示
-				false 						//否存在URL
+				"", 	//标题
+				dpd, 	//数据集
+				true, 	//是否显示Legend
+				true, 	//是否显示提示
+				false 	//否存在URL
 				);
-		//设置背景颜色
-//		CategoryPlot plot = chart.getCategoryPlot();
-//		plot.setBackgroundPaint(ChartColor.WHITE);
-//		//网格线色设置  
-//		plot.setRangeGridlinePaint(ChartColor.GRAY); 
 		
 		return chart;
 	}
@@ -65,7 +58,8 @@ public class PieChart {
 	    ResultSet rs = null;
 	    ResultSet rs2 = null;
 		
-	    DefaultPieDataset dpd = new DefaultPieDataset(); //建立一个默认的饼图
+	    //建立一个默认的饼图
+	    DefaultPieDataset dpd = new DefaultPieDataset(); 
 		
 		//数据库
 		sdb = new SqliteDB();

@@ -51,16 +51,6 @@ public class IndexCard {
 		dataStatTBorder = new TitledBorder("数据统计");
 		dataStatPanel.setBorder(dataStatTBorder);
 		
-//		select date('now', 'start of day');
-//		
-//		sqlite> select date('now', 'start of day', '-7 day', 'weekday 1');
-//		sqlite> select date('now', 'start of day', '+0 day', 'weekday 1');
-//		
-//		sqlite> select * from sche where scheDate >= date('now', 'start of month') and s
-//				cheDate <= date('now', 'start of month', '+1 month', '-1 day');
-//		
-//		sqlite> select date('now', 'start of year');
-//		sqlite> select date('now', 'start of year', '+1 year', '-1 day');
 		//数据统计详细信息
 		//本周
 		iweekLabel = new JLabel("本周收入：0");
