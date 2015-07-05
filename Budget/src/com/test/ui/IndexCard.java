@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 import com.test.func.DetailData;
-import com.test.utils.LineChart;
+import com.test.utils.PieChart;
 
 public class IndexCard {
 	//首页card panel
@@ -161,7 +161,7 @@ public class IndexCard {
 		dataStatPanel.add(allSurplusLabel);
 		
 		//设置数据图表
-		dataGraphPanel = LineChart.createDemoLine();
+		dataGraphPanel = PieChart.createDemoPie();
 		dataGraphTBorder = new TitledBorder("数据图表");
 		dataGraphPanel.setBorder(dataGraphTBorder);
 		

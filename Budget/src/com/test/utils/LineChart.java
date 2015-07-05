@@ -37,7 +37,7 @@ public class LineChart {
 		JFreeChart chart = ChartFactory.createLineChart(
 				"", 						//标题
 				"时间", 						//目录轴的显示标签--横轴
-				"销售额(百万)", 				//数值轴的显示标签--纵轴  
+				"金额(元)", 					//数值轴的显示标签--纵轴  
 				linedataset, 				//数据集
 				PlotOrientation.VERTICAL, 	//图标方向
 				true, 						//是否显示Legend
@@ -55,24 +55,22 @@ public class LineChart {
 
 	//生成数据
 	public static DefaultCategoryDataset createDataset() {
+		
 		DefaultCategoryDataset linedataset = new DefaultCategoryDataset();
 		// 各曲线名称
-		String series1 = "冰箱";
-		String series2 = "彩电";
-		String series3 = "洗衣机";
+		String series1 = "收入";
+		String series2 = "支出";
 		// 横轴名称(列名称)
 		String type1 = "1月";
 		String type2 = "2月";
 		String type3 = "3月";
+		
 		linedataset.addValue(0.0, series1, type1);
 		linedataset.addValue(4.2, series1, type2);
 		linedataset.addValue(3.9, series1, type3);
 		linedataset.addValue(1.0, series2, type1);
 		linedataset.addValue(5.2, series2, type2);
 		linedataset.addValue(7.9, series2, type3);
-		linedataset.addValue(2.0, series3, type1);
-		linedataset.addValue(9.2, series3, type2);
-		linedataset.addValue(8.9, series3, type3);
 		return linedataset;
 	}
 }
