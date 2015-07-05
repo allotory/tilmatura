@@ -1,14 +1,20 @@
 package com.test.ui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.border.TitledBorder;
+
+import com.test.utils.BarChart;
+import com.test.utils.JudgeDate;
 
 //图表分析
 public class GraphCard {
@@ -55,6 +61,22 @@ public class GraphCard {
 			endDate = new JTextField(10);
 			//查询按钮
 			queryBtn = new JButton("查询");
+			queryBtn.addMouseListener(new MouseAdapter() {
+	  			@Override
+	  			public void mousePressed(MouseEvent e) {
+	  				new Thread( ()->{
+	  					if(JudgeDate.judge(startDate.getText()) && JudgeDate.judge(endDate.getText())) {
+	  	  					//刷新图表
+		  	  				SwingUtilities.invokeLater(()->{
+		  	  					graphCPanel = BarChart.createQueryBar(startDate.getText(), endDate.getText());
+		  	  					graphPanel.repaint();
+		  					});
+	  					}else {
+	  						JOptionPane.showMessageDialog(null, "对不起，您的日期格式输入错误！（范例：yyyy-MM-dd）");
+	  					}
+	  				}).start();
+	  			}
+	  		});
 			
 			graphTPanel.add(startDateLabel);
 			graphTPanel.add(startDate);
@@ -63,8 +85,7 @@ public class GraphCard {
 			graphTPanel.add(queryBtn);
 			
 			//图表
-			graphCPanel = new JPanel();
-			graphCPanel.setBackground(Color.GREEN);
+			graphCPanel = BarChart.createDemoBar();
 		}
 		
 		graphPanel.add(BorderLayout.NORTH, graphTPanel);
