@@ -27,7 +27,7 @@ public class TableData {
 				v.add(rs.getInt("id"));
 				v.add(rs.getString("cateName"));
 				v.add(rs.getString("scheType"));
-				v.add(123);
+				v.add("É¾³ý");
 				
 				tableData.add(v);
 			}
