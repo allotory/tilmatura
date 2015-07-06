@@ -57,7 +57,7 @@ public class BarChart {
 				"分类", 						//目录轴的显示标签--横轴
 				"金额(元)", 					//数值轴的显示标签--纵轴  
 				bardataset, 				//数据集
-				PlotOrientation.VERTICAL, 	//图标方向
+				PlotOrientation.HORIZONTAL, 	//图标方向
 				true, 						//是否显示Legend
 				true, 						//是否显示提示
 				false 						//否存在URL
@@ -73,7 +73,7 @@ public class BarChart {
 		// 设置柱子宽度 
 		renderer.setMaximumBarWidth(0.05); 
 		// 设置柱子高度 
-		renderer.setMinimumBarLength(0.2); 
+		renderer.setMinimumBarLength(0.1); 
 		// 设置柱子边框颜色 
 		renderer.setBaseOutlinePaint(Color.BLACK); 
 		// 设置柱子边框可见 

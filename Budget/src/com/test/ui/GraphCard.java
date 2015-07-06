@@ -65,7 +65,7 @@ public class GraphCard {
 	  			@Override
 	  			public void mousePressed(MouseEvent e) {
 	  				new Thread( ()->{
-	  					if(JudgeDate.judge(startDate.getText()) && JudgeDate.judge(endDate.getText())) {
+	  					if(JudgeDate.judge("yyyy-MM-dd", startDate.getText()) && JudgeDate.judge("yyyy-MM-dd", endDate.getText())) {
 	  	  					//Ë¢ÐÂÍ¼±í
 		  	  				SwingUtilities.invokeLater(()->{
 		  	  					graphCPanel = BarChart.createQueryBar(startDate.getText(), endDate.getText());

@@ -75,7 +75,7 @@ public class ScheStatCard {
   			@Override
   			public void mousePressed(MouseEvent e) {
   				new Thread( ()->{
-  					if(JudgeDate.judge(startStatDate.getText()) && JudgeDate.judge(endStatDate.getText())) {
+  					if(JudgeDate.judge("yyyy-MM-dd", startStatDate.getText()) && JudgeDate.judge("yyyy-MM-dd", endStatDate.getText())) {
   						//Êý¾Ý¿â
   	  					sdb = new SqliteDB();
   	  					conn = sdb.getConn();

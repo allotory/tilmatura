@@ -7,10 +7,10 @@ import java.util.Date;
 //判断日期格式
 public class JudgeDate {
 
-	public static DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
-	public static boolean judge(String s) {
+	public static boolean judge(String match, String s) {
 		try {
+			DateFormat formatter = new SimpleDateFormat(match);
 			Date date = (Date) formatter.parse(s);
 			return s.equals(formatter.format(date));
 		} catch (Exception e) {

@@ -69,7 +69,7 @@ public class ExpensesGraphCard {
 	  			@Override
 	  			public void mousePressed(MouseEvent e) {
 	  				new Thread( ()->{
-	  					if(JudgeDate.judge(startDate.getText()) && JudgeDate.judge(endDate.getText())) {
+	  					if(JudgeDate.judge("yyyy-MM-dd", startDate.getText()) && JudgeDate.judge("yyyy-MM-dd", endDate.getText())) {
 	  	  					//刷新图表
 		  	  				SwingUtilities.invokeLater(()->{
 		  	  					graphCPanel = LineChart.createQueryLine(startDate.getText(), endDate.getText(), "支出");
@@ -91,6 +91,23 @@ public class ExpensesGraphCard {
 			endDateLabel = new JLabel("结束日期：");
 			endDate = new JTextField(10);
 			endDate.setText("2015-12");
+			//查询按钮
+			queryBtn = new JButton("查询");
+			queryBtn.addMouseListener(new MouseAdapter() {
+	  			@Override
+	  			public void mousePressed(MouseEvent e) {
+	  				new Thread( ()->{
+	  					if(JudgeDate.judge("yyyy-MM", startDate.getText()) && JudgeDate.judge("yyyy-MM", endDate.getText())) {
+	  	  					//刷新图表
+		  	  				SwingUtilities.invokeLater(()->{
+		  	  					graphCPanel = LineChart.createQueryLine(startDate.getText(), endDate.getText(), "支出");
+		  					});
+	  					}else {
+	  						JOptionPane.showMessageDialog(null, "对不起，您的日期格式输入错误！（范例：yyyy-MM）");
+	  					}
+	  				}).start();
+	  			}
+	  		});
 		}else if(flag.equals("eyeargraph")) {
 			//支出年度分析
 
@@ -102,6 +119,23 @@ public class ExpensesGraphCard {
 			endDateLabel = new JLabel("结束日期：");
 			endDate = new JTextField(10);
 			endDate.setText("2015");
+			//查询按钮
+			queryBtn = new JButton("查询");
+			queryBtn.addMouseListener(new MouseAdapter() {
+	  			@Override
+	  			public void mousePressed(MouseEvent e) {
+	  				new Thread( ()->{
+	  					if(JudgeDate.judge("yyyy", startDate.getText()) && JudgeDate.judge("yyyy", endDate.getText())) {
+	  	  					//刷新图表
+		  	  				SwingUtilities.invokeLater(()->{
+		  	  					graphCPanel = LineChart.createQueryLine(startDate.getText(), endDate.getText(), "支出");
+		  					});
+	  					}else {
+	  						JOptionPane.showMessageDialog(null, "对不起，您的日期格式输入错误！（范例：yyyy）");
+	  					}
+	  				}).start();
+	  			}
+	  		});
 		}
 		
 		
@@ -122,13 +156,13 @@ public class ExpensesGraphCard {
 			//支出月度分析
 
 			//图表
-			graphCPanel = new JPanel();
+			graphCPanel = LineChart.createDemoLine("支出");
 			graphCPanel.setBackground(Color.PINK);
 		}else if(flag.equals("eyeargraph")) {
 			//支出年度分析
 
 			//图表
-			graphCPanel = new JPanel();
+			graphCPanel = LineChart.createDemoLine("支出");
 			graphCPanel.setBackground(Color.YELLOW);
 		}
 		
