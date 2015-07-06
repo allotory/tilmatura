@@ -1,6 +1,10 @@
 package com.test.utils;
 
 import java.awt.Font;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.JPanel;
 
@@ -13,10 +17,19 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
+import com.test.db.SqliteDB;
+
 public class LineChart {
+
+	public static CategoryPlot plot = null;
+	
 	//生成显示图表的面板
-	public static JPanel createDemoLine() {
-		JFreeChart jFreeChart = createChart(createDataset());
+	public static JPanel createDemoLine(String type) {
+		JFreeChart jFreeChart = createChart(createDataset(type));
+		return new ChartPanel(jFreeChart);
+	}
+	public static JPanel createQueryLine(String startDate, String endDate, String type) {
+		JFreeChart jFreeChart = createChart(createQueryDataset(startDate, endDate, type));
 		return new ChartPanel(jFreeChart);
 	}
 
@@ -45,7 +58,7 @@ public class LineChart {
 				false 						//否存在URL
 				);
 		//设置背景颜色
-		CategoryPlot plot = chart.getCategoryPlot();
+		plot = chart.getCategoryPlot();
 		plot.setBackgroundPaint(ChartColor.WHITE);
 		//网格线色设置  
 		plot.setRangeGridlinePaint(ChartColor.GRAY); 
@@ -53,24 +66,76 @@ public class LineChart {
 		return chart;
 	}
 
-	//生成数据
-	public static DefaultCategoryDataset createDataset() {
+	//默认数据
+	public static DefaultCategoryDataset createDataset(String type) {
+		//数据库操作
+	    SqliteDB sdb = null;
+	    Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
 		
 		DefaultCategoryDataset linedataset = new DefaultCategoryDataset();
-		// 各曲线名称
-		String series1 = "收入";
-		String series2 = "支出";
-		// 横轴名称(列名称)
-		String type1 = "1月";
-		String type2 = "2月";
-		String type3 = "3月";
+		//数据库
+		sdb = new SqliteDB();
+		conn = sdb.getConn();
+		try {
+			pstmt = conn.prepareStatement("select * from sche order by scheDate;");
+			rs = sdb.execQuery(pstmt);
+			while(rs.next()) {
+				String sdate = rs.getString("scheDate");
+				String amount = rs.getString("scheAmount");
+				String stype = rs.getString("scheType");
+				if(stype.equals(type)) {
+					linedataset.addValue(Integer.parseInt(amount), "金额", sdate);
+				}
+			}
+			
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
 		
-		linedataset.addValue(0.0, series1, type1);
-		linedataset.addValue(4.2, series1, type2);
-		linedataset.addValue(3.9, series1, type3);
-		linedataset.addValue(1.0, series2, type1);
-		linedataset.addValue(5.2, series2, type2);
-		linedataset.addValue(7.9, series2, type3);
+		sdb.closeDB();
+
 		return linedataset;
+	}
+	
+	//生成数据
+	public static DefaultCategoryDataset createQueryDataset(String startDate, String endDate, String type) {
+		//数据库操作
+	    SqliteDB sdb = null;
+	    Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+		
+		DefaultCategoryDataset linedataset = new DefaultCategoryDataset();
+		//数据库
+		sdb = new SqliteDB();
+		conn = sdb.getConn();
+		try {
+			pstmt = conn.prepareStatement("select * from sche where scheDate>=? and scheDate<=? order by scheDate;");
+			pstmt.setString(1, startDate);
+			pstmt.setString(2, endDate);
+			rs = sdb.execQuery(pstmt);
+			while(rs.next()) {
+				String sdate = rs.getString("scheDate");
+				String amount = rs.getString("scheAmount");
+				String stype = rs.getString("scheType");
+				if(stype.equals(type)) {
+					linedataset.addValue(Integer.parseInt(amount), "金额", sdate);
+				}
+			}
+			
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		
+		sdb.closeDB();
+		//刷新
+		refresh(linedataset);
+		return linedataset;
+	}
+	
+	public static void refresh(DefaultCategoryDataset dataset) {
+		plot.setDataset(dataset); 
 	}
 }

@@ -3,13 +3,19 @@ package com.test.ui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.border.TitledBorder;
+
+import com.test.utils.JudgeDate;
+import com.test.utils.LineChart;
 
 public class ExpensesGraphCard {
 
@@ -27,9 +33,6 @@ public class ExpensesGraphCard {
     //图表 - 结束日期
     private JLabel endDateLabel = null;
     private JTextField endDate = null;
-    //图表- 类别
-    private JLabel scheTypeLabel = null;
-    private JComboBox<String> scheTypeCbox = null;
     //图表 - 查询
     private JButton queryBtn = null;
     
@@ -59,6 +62,24 @@ public class ExpensesGraphCard {
 			endDateLabel = new JLabel("结束日期：");
 			endDate = new JTextField(10);
 			endDate.setText("2015-12-31");
+			
+			//查询按钮
+			queryBtn = new JButton("查询");
+			queryBtn.addMouseListener(new MouseAdapter() {
+	  			@Override
+	  			public void mousePressed(MouseEvent e) {
+	  				new Thread( ()->{
+	  					if(JudgeDate.judge(startDate.getText()) && JudgeDate.judge(endDate.getText())) {
+	  	  					//刷新图表
+		  	  				SwingUtilities.invokeLater(()->{
+		  	  					graphCPanel = LineChart.createQueryLine(startDate.getText(), endDate.getText(), "支出");
+		  					});
+	  					}else {
+	  						JOptionPane.showMessageDialog(null, "对不起，您的日期格式输入错误！（范例：yyyy-MM-dd）");
+	  					}
+	  				}).start();
+	  			}
+	  		});
 		}else if(flag.equals("emonthgraph")) {
 			//支出月度分析
 
@@ -83,30 +104,19 @@ public class ExpensesGraphCard {
 			endDate.setText("2015");
 		}
 		
-		//类别
-		scheTypeLabel = new JLabel("类别：");
-		scheTypeCbox = new JComboBox<String>();
-		scheTypeCbox.addItem("全部");
-		scheTypeCbox.addItem("衣");
-		scheTypeCbox.addItem("食");
-		scheTypeCbox.addItem("住");
-		scheTypeCbox.addItem("行");
-		//查询按钮
-		queryBtn = new JButton("查询");
+		
 		
 		graphTPanel.add(startDateLabel);
 		graphTPanel.add(startDate);
 		graphTPanel.add(endDateLabel);
 		graphTPanel.add(endDate);
-		graphTPanel.add(scheTypeLabel);
-		graphTPanel.add(scheTypeCbox);
 		graphTPanel.add(queryBtn);
 
 		if(flag.equals("edaygraph")) {
 			//支出日段分析
 
 			//图表
-			graphCPanel = new JPanel();
+			graphCPanel = LineChart.createDemoLine("支出");
 			graphCPanel.setBackground(Color.ORANGE);
 		}else if(flag.equals("emonthgraph")) {
 			//支出月度分析
