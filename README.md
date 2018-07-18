@@ -16,4 +16,4 @@ This is a income and expenditure details tools, just a homework.
 
 ## License
 
-The MIT License.
+The GPL3.0 License.
